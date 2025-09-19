@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:05:46 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 17:10:47 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/19 17:39:34 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ bool	is_d(char c, t_prompt *p)
 	if (c == 0x04)
 	{
 		write(1, "\n", 1);
-		write(1, p->prompt, ft_strlen(p->prompt));
 		p->exit_flag = 1;
 		return (true);
 	}
