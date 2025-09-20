@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 17:14:26 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:50:16 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	next_read(t_prompt *p)
 	while (len)
 	{
 		len = read(0, &c, 1);
-		if (len == -1)
+		if (len == -1 || is_d(c, p))
 			return (false);
 		if (c == '\n')
 			return (set_history(p), write(1, &c, 1), true);
