@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:31:36 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 17:09:36 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:40:35 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ bool	init_prompt(t_prompt *p, char *prompt)
 		if (!p->input)
 			return (false);
 	}
-	if (!p->history)
+	if (!p->history.entries)
 	{
-		p->max_history = 64;
-		p->history_size = 0;
-		p->history = calloc(1, sizeof(char *) * p->max_history);
-		if (!p->history)
+		p->history.capacity = 64;
+		p->history.size = 0;
+		p->history.entries = calloc(1, sizeof(char *) * p->history.capacity);
+		if (!p->history.entries)
 			return (false);
 	}
 	p->prompt = ft_strdup(prompt);

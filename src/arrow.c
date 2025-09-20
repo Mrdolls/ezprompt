@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 14:34:03 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 17:10:27 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/20 19:21:42 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ t_arrow	get_arrow(void)
 
 void	set_history_up(t_prompt *p)
 {
-	if (p->history_size == 0)
+	if (p->history.size == 0)
 		return ;
-	if (p->history_index <= 0)
-		p->history_index = p->history_size - 1;
+	if (p->history.index <= 0)
+		p->history.index = p->history.size - 1;
 	else
-		p->history_index--;
+		p->history.index--;
 	free(p->input);
-	p->input = resize(p->history[p->history_index], 64, false);
+	p->input = resize(p->history.entries[p->history.index], 64, false);
 	if (!p->input)
 		return ;
 	p->input_size = ft_strlen(p->input);
@@ -53,21 +53,21 @@ void	set_history_up(t_prompt *p)
 
 void	set_history_down(t_prompt *p)
 {
-	if (p->history_size == 0)
+	if (p->history.size == 0)
 		return ;
-	if (p->history_index >= p->history_size - 1)
+	if (p->history.index >= p->history.size - 1)
 	{
-		p->history_index = p->history_size;
+		p->history.index = p->history.size;
 		free(p->input);
-		p->input = ft_strdup("");
+		p->input = ft_calloc(1, 64);
 		if (!p->input)
 			return ;
 	}
 	else
 	{
-		p->history_index++;
+		p->history.index++;
 		free(p->input);
-		p->input = resize(p->history[p->history_index], 64, false);
+		p->input = resize(p->history.entries[p->history.index], 64, false);
 		if (!p->input)
 			return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 13:50:16 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/20 19:11:43 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 static bool	append_char(t_prompt *p, char c)
 {
 	write(1, &c, 1);
-	if (p->input_size + 2 >= p->input_capacity)
-	{
-		p->input = resize(p->input, 64, true);
-		if (!p->input)
-			return (false);
-		p->input_capacity += 64;
-	}
+	if (!ensure_capacity((void **)&p->input, &p->input_capacity,
+			p->input_size + 2, sizeof(char)))
+		return (false);
 	p->input[p->input_size++] = c;
 	p->input[p->input_size] = '\0';
 	return (true);
@@ -32,27 +28,18 @@ void	set_history(t_prompt *p)
 	int		i;
 	char	**new_hist;
 
-	if (is_empty(p->input) || (p->history_size > 0 && ft_strncmp(p->input,
-				p->history[p->history_size - 1],
+	if (is_empty(p->input) || (p->history.size > 0 && ft_strncmp(p->input,
+				p->history.entries[p->history.size - 1],
 				ft_strlen(p->input)) == 0))
 		return ;
-	if (p->history_size >= p->max_history)
-	{
-		new_hist = malloc(sizeof(char *) * (p->max_history + 64));
-		if (!new_hist)
-			return ;
-		i = -1;
-		while (++i < p->history_size)
-			new_hist[i] = p->history[i];
-		free(p->history);
-		p->history = new_hist;
-		p->max_history += 64;
-	}
-	p->history[p->history_size] = ft_strdup(p->input);
-	if (!p->history[p->history_size])
+	if (!ensure_capacity((void **)&p->history.entries, &p->history.capacity,
+			p->history.size + 1, sizeof(char*)))
 		return ;
-	p->history_size++;
-	p->history_index = p->history_size;
+	p->history.entries[p->history.size] = ft_strdup(p->input);
+	if (!p->history.entries[p->history.size])
+		return ;
+	p->history.size++;
+	p->history.index = p->history.size;
 }
 
 bool	next_read(t_prompt *p)
@@ -82,21 +69,3 @@ bool	next_read(t_prompt *p)
 	}
 	return (true);
 }
-
-// int	main(void)
-// {
-// 	int	i;
-// 	t_prompt	*p;
-
-// 	p = calloc(1, sizeof(t_prompt));
-// 	init_prompt(p, "test> ");
-// 	i = 0;
-// 	while (i < 2)
-// 	{
-// 		next_read(p);
-// 		clear_input(p);
-// 		i++;
-// 	}
-// 	free_prompt(p);
-// 	return (0);
-// }

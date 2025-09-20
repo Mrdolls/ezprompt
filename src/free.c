@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:30:35 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 17:07:40 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:39:20 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_prompt(t_prompt *p)
 		free(p->input);
 	if (p->prompt)
 		free(p->prompt);
-	if (p->history)
-		free_tab(p->history);
+	if (p->history.entries)
+		free_tab(p->history.entries);
 	free(p);
 }
