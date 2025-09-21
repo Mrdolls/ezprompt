@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:15:26 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_putstr(char *str);
 void	ft_putnbr_fd(int n, int fd);
 char	*resize(char *old, int n, bool free_old);
 char	*insert_char(char *old, char c, int pos);
+char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size);
 void	refresh_prompt(t_prompt *p);
 bool	is_l(char c, t_prompt *p);
 bool	is_d(char c, t_prompt *p);

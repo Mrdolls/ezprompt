@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:05:46 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 12:34:38 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:18:11 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	is_l(char c, t_prompt *p)
 		write(1, "\x1b[2J\x1b[H", 7);
 		write(1, p->prompt, ft_strlen(p->prompt));
 		write(1, p->input, p->input_size);
+		p->cursor_pos = p->input_size;
 		return (true);
 	}
 	return (false);
@@ -41,10 +42,8 @@ bool	is_backspace(char c, t_prompt *p)
 	{
 		if (p->input_size > 0)
 		{
-			p->input_size--;
-			p->cursor_pos--;
-			p->input[p->input_size] = '\0';
-			write(1, "\b \b", 3);
+			p->input = delete_char(p->input, &p->cursor_pos, &p->input_size);
+			refresh_prompt(p);
 		}
 		return (true);
 	}
