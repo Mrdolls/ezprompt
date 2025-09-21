@@ -1,66 +1,73 @@
 # ezprompt
 
-`ezprompt` est une petite bibliothèque C qui fournit une interface simple et portable pour créer des invites (prompts) interactives avec gestion de l’historique et des touches fléchées.  
-Elle a été pensée pour être intégrée facilement dans des projets tels que des minishells, REPLs ou outils en ligne de commande.
+`ezprompt` is a small C library that provides a simple and portable interface for creating interactive prompts with history and arrow key support.
+It is designed to be easily integrated into projects such as `mini-shells`, `REPLs`, or `command-line` tools.
 
 ---
 
-## Fonctionnalités
+## Features
 
-- Création d’une invite personnalisée.
-- Lecture de l’entrée utilisateur caractère par caractère.
-- Gestion de l’historique intégrée :
-  - Chaque saisie validée est automatiquement ajoutée à l’historique.
-  - Navigation avec les touches fléchées `↑` et `↓`.
-- Effacement du buffer d’entrée après traitement.
-- Fonctions utilitaires incluses (`ft_strdup`, `ft_strlen`, etc.).
+- Customizable prompt creation.
+
+- Character-by-character user input reading.
+
+- Built-in history management:
+
+  - Each validated input is automatically added to the history.
+
+  - Navigation using the arrow keys ↑ and ↓.
+
+- Input buffer clearing after processing.
+
+- Utility functions included (ft_strdup, ft_strlen, etc.).
 
 ---
 
-## Exemple d’utilisation
+## Usage Example
 
-Voici un exemple simple d’un mini-shell utilisant `ezprompt` :
+Here’s a simple example of a mini-shell using ezprompt:
 
 ```c
 #include "ezprompt.h"
-#include <stdio.h>
 
 int main(void)
 {
     t_prompt *p;
 
-    p = calloc(1, sizeof(t_prompt));                   // → Allocation de la structure t_prompt
-    if (!p)                                            // → Vérifie l'échec de l'allocation
+    p = calloc(1, sizeof(t_prompt));                   // → Allocate the t_prompt structure
+    if (!p)                                            // → Check allocation failure
         return (1);
 
-    if (init_prompt(p, "myshell> "))                    // → Initialisation du prompt avec "myshell> "
+    if (init_prompt(p, "myshell> "))                  // → Initialize the prompt with "myshell> "
         return (1);
 
-    while (!p->exit_flag)                               // → Boucle principale (tourne tant que pas de sortie)
+    while (!p->exit_flag)                              // → Main loop (runs until exit)
     {
-        if (next_read(p))                               // → Lecture d'une ligne utilisateur (avec gestion des touches)
+        if (next_read(p))                              // → Read a user line (with key handling)
             break;
 
-        if (!is_empty(p->input))                        // → Vérifie que l'entrée n'est pas vide
-            printf("Vous avez tapé : %s\n", p->input);  // → Affiche le texte saisi
+        if (!is_empty(p->input))                       // → Check that the input is not empty
+            printf("You typed: %s\n", p->input);      // → Print the typed text
 
-        if (clear_input(p))                             // → Réinitialise l'entrée pour la prochaine saisie
+        if (clear_input(p))                            // → Clear the input buffer for the next line
             break;
     }
 
-    free_prompt(p);                                     // → Libère toute la mémoire utilisée
+    free_prompt(p);                                    // → Free all allocated memory
     return (0);
 }
-
 ```
-## Resultat:
+
+---
+
+## Example Output
 ```
 myshell> ls -la
-Vous avez tapé : ls -la
+You typed: ls -la
 
 myshell> echo hello
-Vous avez tapé : echo hello
+You typed: echo hello
 
 myshell> exit
-Vous avez tapé : exit
+You typed: exit
 ```
