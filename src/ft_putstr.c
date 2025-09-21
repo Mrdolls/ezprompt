@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:08:40 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:40 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:36:10 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,10 @@ void	refresh_prompt(t_prompt *p)
 	write(1, "\033[", 2);
 	ft_putnbr_fd((int)ft_strlen(p->prompt) + p->cursor_pos + 1, 1);
 	write(1, "G", 1);
+}
+
+void	update_prompt(t_prompt *p, char *new_prompt)
+{
+	free(p->prompt);
+	p->prompt = resize(new_prompt, ft_strlen(new_prompt), false);
 }
