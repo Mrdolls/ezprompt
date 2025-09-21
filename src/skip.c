@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:05:46 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 13:45:25 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 12:34:38 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ bool	is_backspace(char c, t_prompt *p)
 		if (p->input_size > 0)
 		{
 			p->input_size--;
+			p->cursor_pos--;
 			p->input[p->input_size] = '\0';
 			write(1, "\b \b", 3);
 		}

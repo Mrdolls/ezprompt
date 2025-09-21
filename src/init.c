@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:31:36 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 18:40:35 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 12:36:16 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	set_input_mode(void)
 bool	init_prompt(t_prompt *p, char *prompt)
 {
 	set_input_mode();
-	p->input_capacity = 64;
 	if (!p->input)
 	{
+		p->input_capacity = 64;
 		p->input = resize(p->input, 64, true);
 		if (!p->input)
 			return (false);

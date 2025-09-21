@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 14:34:03 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 19:21:42 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 13:39:01 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	set_history_up(t_prompt *p)
 	write(1, "\x1b[2K\r", 5);
 	write(1, p->prompt, ft_strlen(p->prompt));
 	write(1, p->input, p->input_size);
+	p->cursor_pos = p->input_size;
 }
 
 void	set_history_down(t_prompt *p)
@@ -75,6 +76,21 @@ void	set_history_down(t_prompt *p)
 	write(1, "\x1b[2K\r", 5);
 	write(1, p->prompt, ft_strlen(p->prompt));
 	write(1, p->input, p->input_size);
+	p->cursor_pos = p->input_size;
+}
+
+void	set_cursor(t_prompt *p, t_arrow arrow)
+{
+	if (arrow == ARROW_LEFT && p->cursor_pos > 0)
+	{
+		p->cursor_pos--;
+		write(1, "\033[D", 3);
+	}
+	else if (arrow == ARROW_RIGHT && p->cursor_pos < p->input_size)
+	{
+		p->cursor_pos++;
+		write(1, "\033[C", 3);
+	}
 }
 
 bool	play_arrow(t_prompt *p)
@@ -86,5 +102,9 @@ bool	play_arrow(t_prompt *p)
 		set_history_up(p);
 	else if (arrow == ARROW_DOWN)
 		set_history_down(p);
+	else if (arrow == ARROW_LEFT)
+		set_cursor(p, ARROW_LEFT);
+	else if (arrow == ARROW_RIGHT)
+		set_cursor(p, ARROW_RIGHT);
 	return (true);
 }

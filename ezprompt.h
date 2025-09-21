@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 18:57:24 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 13:33:23 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <termios.h>
+# include <stdio.h>
 
 typedef struct s_history
 {
@@ -32,6 +33,7 @@ typedef struct s_prompt
 	size_t		input_size;
 	size_t		input_capacity;
 	t_history	history;
+	size_t		cursor_pos;
 	int			exit_flag;
 }			t_prompt;
 
@@ -52,7 +54,11 @@ bool	play_arrow(t_prompt *p);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
+void	ft_putstr(char *str);
+void	ft_putnbr_fd(int n, int fd);
 char	*resize(char *old, int n, bool free_old);
+char	*insert_char(char *old, char c, int pos);
+void	refresh_prompt(t_prompt *p);
 bool	is_l(char c, t_prompt *p);
 bool	is_d(char c, t_prompt *p);
 bool	is_backspace(char c, t_prompt *p);
@@ -65,6 +71,7 @@ bool	clear_input(t_prompt *p);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 bool	ensure_capacity(void **buffer, size_t *capacity,
 			size_t needed, size_t elem_size);
 

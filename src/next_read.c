@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 19:11:43 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/21 13:26:34 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 static bool	append_char(t_prompt *p, char c)
 {
-	write(1, &c, 1);
+	char	*new_input;
+
 	if (!ensure_capacity((void **)&p->input, &p->input_capacity,
 			p->input_size + 2, sizeof(char)))
 		return (false);
-	p->input[p->input_size++] = c;
-	p->input[p->input_size] = '\0';
+	new_input = insert_char(p->input, c, p->cursor_pos);
+	if (!new_input)
+		return (false);
+	p->input = new_input;
+	p->input_size++;
+	p->cursor_pos++;
+	refresh_prompt(p);
 	return (true);
 }
 
@@ -48,6 +54,7 @@ bool	next_read(t_prompt *p)
 	int		len;
 
 	len = 1;
+	p->cursor_pos = 0;
 	write(1, p->prompt, ft_strlen(p->prompt));
 	while (len)
 	{
