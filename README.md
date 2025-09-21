@@ -7,17 +7,17 @@ It is designed to be easily integrated into projects such as `mini-shells`, `REP
 
 ## Features
 
-- Customizable prompt creation.
+- `Customizable prompt` creation.
 
-- Character-by-character user input reading.
+- `Character-by-character` user input reading.
 
 - Built-in history management:
 
-  - Each validated input is automatically added to the history.
+  - Each validated input is `automatically added` to the history.
 
-  - Navigation using the arrow keys ↑ and ↓.
+  - Navigation using the arrow keys `↑ & ↓` for `history` and `← & →` for `moving the cursor`.
 
-- Input buffer clearing after processing.
+- Input buffer `clearing` after processing.
 
 - Utility functions included (ft_strdup, ft_strlen, etc.).
 
@@ -25,7 +25,7 @@ It is designed to be easily integrated into projects such as `mini-shells`, `REP
 
 ## Usage Example
 
-Here’s a simple example of a mini-shell using ezprompt:
+Here’s a `simple example` of a mini-shell using `ezprompt`:
 
 ```c
 #include "ezprompt.h"
