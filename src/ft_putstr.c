@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:08:40 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 18:36:10 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:49:55 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+}
+
+bool	ft_isalnum(char c)
+{
+	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z'))
+		return (true);
+	else
+		return (false);
 }
 
 void	refresh_prompt(t_prompt *p)

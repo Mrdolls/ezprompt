@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:36:55 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/23 10:37:44 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:13:49 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,15 @@ char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size)
 	(*cursor_pos)--;
 	(*input_size)--;
 	return (new);
+}
+
+void	clear_extra_space(t_prompt *p)
+{
+	while (!is_empty(p->input) && !ft_isalnum(p->input[p->input_size]))
+	{
+		p->input[p->input_size] = '\0';
+		p->input_size--;
+	}
+	if (!is_empty(p->input))
+		p->input_size++;
 }

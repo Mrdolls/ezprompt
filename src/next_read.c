@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/23 22:18:29 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:54:50 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	next_read(t_prompt *p)
 	write(1, p->prompt, ft_strlen(p->prompt));
 	if (!get_input(p))
 		return (false);
-	p->input[p->input_size] = '\0';
+	clear_extra_space(p);
 	if (!set_history(p))
 		return (false);
 	return (true);
