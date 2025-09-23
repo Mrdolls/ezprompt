@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 14:34:03 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 13:39:01 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:20:32 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	set_history_up(t_prompt *p)
 	else
 		p->history.index--;
 	free(p->input);
-	p->input = resize(p->history.entries[p->history.index], 64, false);
+	p->input = ft_strdup(p->history.entries[p->history.index]);
 	if (!p->input)
 		return ;
 	p->input_size = ft_strlen(p->input);
@@ -68,7 +68,7 @@ void	set_history_down(t_prompt *p)
 	{
 		p->history.index++;
 		free(p->input);
-		p->input = resize(p->history.entries[p->history.index], 64, false);
+		p->input = ft_strdup(p->history.entries[p->history.index]);
 		if (!p->input)
 			return ;
 	}
