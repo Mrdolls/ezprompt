@@ -34,11 +34,7 @@ int main(void)
 {
     t_prompt *p;
 
-    p = calloc(1, sizeof(t_prompt));                   // → Allocate the t_prompt structure
-    if (!p)                                            // → Check allocation failure
-        return (1);
-
-    if (init_prompt(p, "myshell> "))                  // → Initialize the prompt with "myshell> "
+    if (init_prompt(&p, "myshell> "))                  // → Initialize the prompt with "myshell> "
         return (1);
 
     while (!p->exit_flag)                              // → Main loop (runs until exit)
