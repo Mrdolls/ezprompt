@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 18:36:23 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:43:28 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	is_empty(char *str);
 bool	is_skipable(char c, t_prompt *p);
 void	free_tab(char **tab);
 void	free_prompt(t_prompt *p);
-bool	init_prompt(t_prompt *p, char *prompt);
+bool	init_prompt(t_prompt **p, char *prompt);
 bool	clear_input(t_prompt *p);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
