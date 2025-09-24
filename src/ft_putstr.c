@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:08:40 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/23 22:49:55 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:52:39 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	ft_putstr(char *str)
 bool	ft_isalnum(char c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'))
+		|| (c >= 'A' && c <= 'Z') || (c >= '!' && c <= '/')
+		|| (c >= ':' && c <= '@') || (c >= '[' && c <= '`')
+		|| (c >= '{' && c <= '~'))
 		return (true);
 	else
 		return (false);
@@ -46,5 +48,5 @@ void	refresh_prompt(t_prompt *p)
 void	update_prompt(t_prompt *p, char *new_prompt)
 {
 	free(p->prompt);
-	p->prompt = resize(new_prompt, ft_strlen(new_prompt), false);
+	p->prompt = ft_strdup(new_prompt);
 }
