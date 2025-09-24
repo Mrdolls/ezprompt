@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/23 23:20:59 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:28:37 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	set_history_down(t_prompt *p);
 t_arrow	get_arrow(void);
 bool	play_arrow(t_prompt *p);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
 void	ft_putstr(char *str);
 bool	ft_isalnum(char c);

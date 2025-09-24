@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/24 12:53:04 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:28:14 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,18 @@ static bool	append_char(t_prompt *p, char c)
 
 static bool	set_history(t_prompt *p)
 {
+	int	size;
+
+	if (p->history.size > 0)
+	{
+		if (p->input_size > ft_strlen(p->history.entries[p->history.size - 1]))
+			size = p->input_size;
+		else
+			size = ft_strlen(p->history.entries[p->history.size - 1]);
+	}
 	if (is_empty(p->input) || (p->history.size > 0 && ft_strncmp(p->input,
 				p->history.entries[p->history.size - 1],
-				ft_strlen(p->input)) == 0))
+				size) == 0))
 	{
 		p->history.index = p->history.size;
 		return (true);
