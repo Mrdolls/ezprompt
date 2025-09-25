@@ -34,22 +34,22 @@ int main(void)
 {
     t_prompt *p;
 
-    if (init_prompt(&p, "myshell> "))                  // → Initialize the prompt with "myshell> "
+    if (init_prompt(&p, "myshell> "))				// → Initialize the prompt with "myshell> "
         return (1);
 
-    while (!p->exit_flag)                              // → Main loop (runs until exit)
+    while (!p->exit_flag)							// → Main loop (runs until exit)
     {
-        if (next_read(p))                              // → Read a user line (with key handling)
+        if (next_read(p))							// → Read a user line (with key handling)
             break;
 
-        if (!is_empty(p->input))                       // → Check that the input is not empty
-            printf("You typed: %s\n", p->input);      // → Print the typed text
+        if (!is_empty(p->input))					// → Check that the input is not empty
+            printf("You typed: %s\n", p->input);	// → Print the typed text
 
-        if (clear_input(p))                            // → Clear the input buffer for the next line
+        if (clear_input(p))							// → Clear the input buffer for the next line
             break;
     }
 
-    free_prompt(p);                                    // → Free all allocated memory
+    free_prompt(p);									// → Free all allocated memory
     return (0);
 }
 ```
