@@ -40,12 +40,12 @@ int main(void)
     while (!p->exit_flag)						// → Main loop (runs until exit)
     {
         if (next_read(p))						// → Read a user line (with key handling)
-            break;
+            break ;
 
         printf("You typed: %s\n", p->input);	// → Print the typed text
 
         if (clear_input(p))						// → Clear the input buffer for the next line
-            break;
+            break ;
     }
 
     free_prompt(p);								// → Free all allocated memory
