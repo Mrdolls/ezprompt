@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/24 15:28:37 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:18:33 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,24 @@ typedef enum e_arrow
 	ARROW_RIGHT
 }		t_arrow;
 
-bool	next_read(t_prompt *p);
-void	set_history_up(t_prompt *p);
-void	set_history_down(t_prompt *p);
-t_arrow	get_arrow(void);
-bool	play_arrow(t_prompt *p);
+/*42 functions*/
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
 void	ft_putstr(char *str);
 bool	ft_isalnum(char c);
 void	ft_putnbr_fd(int n, int fd);
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/*core functions*/
+bool	next_read(t_prompt *p);
+void	set_history_up(t_prompt *p);
+void	set_history_down(t_prompt *p);
+t_arrow	get_arrow(void);
+bool	play_arrow(t_prompt *p);
 char	*resize(char *old, int n, bool free_old);
 char	*insert_char(char *old, char c, int pos);
 char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size);
@@ -72,10 +79,6 @@ void	free_tab(char **tab);
 void	free_prompt(t_prompt *p);
 bool	init_prompt(t_prompt **p, char *prompt);
 bool	clear_input(t_prompt *p);
-void	*ft_memset(void *s, int c, size_t n);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
 bool	ensure_capacity(void **buffer, size_t *capacity,
 			size_t needed, size_t elem_size);
 
