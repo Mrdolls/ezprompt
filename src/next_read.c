@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   next_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgingast <mgingast <mgingast@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/24 15:28:14 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:22:38 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static bool	get_input(t_prompt *p)
 bool	next_read(t_prompt *p)
 {
 	p->cursor_pos = 0;
-	write(1, p->prompt, ft_strlen(p->prompt));
+	write(1, p->prompt, prompt_width(p->prompt) + 1);
 	if (!get_input(p))
 		return (false);
 	clear_extra_space(p);

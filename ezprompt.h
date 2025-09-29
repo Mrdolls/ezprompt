@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ezprompt.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgingast <mgingast <mgingast@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/25 18:18:33 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:59:08 by mgingast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ bool	next_read(t_prompt *p);
 void	set_history_up(t_prompt *p);
 void	set_history_down(t_prompt *p);
 t_arrow	get_arrow(void);
+int		prompt_width(const char *s);
 bool	play_arrow(t_prompt *p);
 char	*resize(char *old, int n, bool free_old);
 char	*insert_char(char *old, char c, int pos);
