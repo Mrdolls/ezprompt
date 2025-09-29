@@ -23,6 +23,16 @@ It is designed to be easily integrated into projects such as `mini-shells`, `REP
 
 ---
 
+## Disclaimer
+
+⚠️ Currently, `ezprompt` **does not support**:
+- multi-line input,
+- the `Tab` key.
+
+These features may be added in future versions.
+
+---
+
 ## Usage Example
 
 Here’s a `simple example` of a mini-shell using `ezprompt`:
