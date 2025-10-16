@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ezprompt.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: rel-qoqu <rel-qoqu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 11:35:49 by rel-qoqu          #+#    #+#             */
+/*   Updated: 2025/10/16 13:53:32 by rel-qoqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ezprompt.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: mgingast <mgingast <mgingast@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:08 by mgingast          #+#    #+#             */
@@ -12,11 +24,9 @@
 
 #ifndef EZPROMPT_H
 # define EZPROMPT_H
-# include <stdlib.h>
-# include <unistd.h>
+
 # include <stdbool.h>
-# include <termios.h>
-# include <stdio.h>
+# include <stddef.h>
 
 typedef struct s_history
 {
@@ -35,6 +45,7 @@ typedef struct s_prompt
 	t_history	history;
 	size_t		cursor_pos;
 	int			exit_flag;
+	char		padding[4];
 }			t_prompt;
 
 typedef enum e_arrow
@@ -46,39 +57,27 @@ typedef enum e_arrow
 	ARROW_RIGHT
 }		t_arrow;
 
-/*42 functions*/
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-void	ft_putstr(char *str);
-bool	ft_isalnum(char c);
-void	ft_putnbr_fd(int n, int fd);
-void	*ft_memset(void *s, int c, size_t n);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-
-/*core functions*/
+// core functions
 bool	next_read(t_prompt *p);
 void	set_history_up(t_prompt *p);
 void	set_history_down(t_prompt *p);
 t_arrow	get_arrow(void);
-int		prompt_width(const char *s);
+size_t	prompt_width(const char *s);
 bool	play_arrow(t_prompt *p);
-char	*resize(char *old, int n, bool free_old);
-char	*insert_char(char *old, char c, int pos);
+char	*resize(char *old, size_t n);
+char	*insert_char(char *old, char c, size_t pos);
 char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size);
 void	clear_extra_space(t_prompt *p);
-void	refresh_prompt(t_prompt *p);
-void	update_prompt(t_prompt *p, char *new_prompt);
+void	refresh_prompt(const t_prompt *p);
+void	update_prompt(t_prompt *p, const char *new_prompt);
 bool	is_l(char c, t_prompt *p);
 bool	is_d(char c, t_prompt *p);
 bool	is_backspace(char c, t_prompt *p);
-bool	is_empty(char *str);
+bool	is_empty(const char *str);
 bool	is_skipable(char c, t_prompt *p);
 void	free_tab(char **tab);
 void	free_prompt(t_prompt *p);
-bool	init_prompt(t_prompt **p, char *prompt);
+bool	init_prompt(t_prompt **p, const char *prompt);
 bool	clear_input(t_prompt *p);
 bool	ensure_capacity(void **buffer, size_t *capacity,
 			size_t needed, size_t elem_size);
