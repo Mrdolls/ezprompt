@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:36:27 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:20:58 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static bool	get_input(t_prompt *p)
 bool	next_read(t_prompt *p)
 {
 	p->cursor_pos = 0;
-	write(1, p->prompt, (size_t)prompt_width(p->prompt) + 1);
+	write(1, p->prompt, prompt_width(p->prompt) + 1);
 	if (!get_input(p))
 		return (false);
 	clear_extra_space(p);
