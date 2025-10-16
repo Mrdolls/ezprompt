@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 14:34:03 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:11:55 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:57:26 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,8 @@
 #include "ezprompt.h"
 #include "utils.h"
 
-t_arrow	get_arrow(void)
+static inline t_arrow	parse_final(unsigned char c)
 {
-	char	c;
-
-	if (read(0, &c, 1) <= 0)
-		return (ARROW_NONE);
-	if (c != '[')
-		return (ARROW_NONE);
-	if (read(0, &c, 1) <= 0)
-		return (ARROW_NONE);
 	if (c == 'A')
 		return (ARROW_UP);
 	if (c == 'B')
@@ -35,6 +27,29 @@ t_arrow	get_arrow(void)
 	if (c == 'D')
 		return (ARROW_LEFT);
 	return (ARROW_NONE);
+}
+
+t_arrow	get_arrow(void)
+{
+	unsigned char	c;
+
+	if (read(0, &c, 1) <= 0)
+		return (ARROW_NONE);
+	if (c == '[')
+	{
+		if (read(0, &c, 1) <= 0)
+			return (ARROW_NONE);
+		return (parse_final(c));
+	}
+	if (c != 0x1B)
+		return (ARROW_NONE);
+	if (read(0, &c, 1) <= 0)
+		return (ARROW_NONE);
+	if (c != '[')
+		return (ARROW_NONE);
+	if (read(0, &c, 1) <= 0)
+		return (ARROW_NONE);
+	return (parse_final(c));
 }
 
 void	set_history_up(t_prompt *p)

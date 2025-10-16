@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:36:55 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 14:00:23 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:02:45 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,30 @@ char	*resize(char *old, const size_t n)
 	return (new);
 }
 
-char	*insert_char(char *old, const char c, const size_t pos)
+char	*insert_char(char *old, const char c, size_t pos)
 {
 	size_t	len;
-	char	*new;
+	char	*new_str;
 
 	if (!old)
-		return (NULL);
+	{
+		new_str = ft_calloc(2, sizeof(char));
+		if (!new_str)
+			return (NULL);
+		new_str[0] = c;
+		return (new_str);
+	}
 	len = ft_strlen(old);
 	if (pos > len)
+		pos = len;
+	new_str = ft_calloc(len + 2, sizeof(char));
+	if (!new_str)
 		return (NULL);
-	new = ft_calloc(1, ft_strlen(old) + 2);
-	if (!new)
-		return (NULL);
-	ft_memcpy(new, old, pos);
-	new[pos] = c;
-	ft_memcpy(new + pos + 1, old + pos, len - pos + 1);
+	ft_memcpy(new_str, old, pos);
+	new_str[pos] = c;
+	ft_memcpy(new_str + pos + 1, old + pos, len - pos + 1);
 	free(old);
-	return (new);
+	return (new_str);
 }
 
 char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size)
