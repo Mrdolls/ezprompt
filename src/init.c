@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:31:36 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 17:19:16 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:56:48 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static inline bool	fail_and_free_prompt(t_prompt *prompt)
 bool	init_prompt(t_prompt *p, const char *prompt)
 {
 	set_input_mode();
-	p = ft_calloc(1, sizeof(t_prompt));
 	if (!p)
 		return (false);
 	init_prompt_fields(p);

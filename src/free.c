@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:30:35 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:12:24 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:58:35 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,4 @@ void	free_prompt(t_prompt *p)
 		free(p->prompt);
 	if (p->history.entries)
 		free_tab(p->history.entries);
-	free(p);
 }
