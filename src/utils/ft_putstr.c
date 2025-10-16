@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: rel-qoqu <rel-qoqu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 11:35:49 by rel-qoqu          #+#    #+#             */
+/*   Updated: 2025/10/16 12:57:42 by rel-qoqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: mgingast <mgingast <mgingast@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:08:40 by mgingast          #+#    #+#             */
@@ -10,48 +22,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <unistd.h>
 
-void	ft_putstr(char *str)
+#include "utils.h"
+
+void	ft_putstr(const char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
+	write(1, str, ft_strlen(str));
 }
 
-bool	ft_isalnum(char c)
+bool	ft_isalnum(const char c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
 		|| (c >= 'A' && c <= 'Z') || (c >= '!' && c <= '/')
 		|| (c >= ':' && c <= '@') || (c >= '[' && c <= '`')
 		|| (c >= '{' && c <= '~'))
 		return (true);
-	else
-		return (false);
-}
-
-void	refresh_prompt(t_prompt *p)
-{
-	int	max;
-
-	max = 1;
-	if ((int)ft_strlen(p->prompt) != prompt_width(p->prompt))
-		max = 0;
-	write(1, "\033[2K\r", 5);
-	write(1, p->prompt, prompt_width(p->prompt) + 1);
-	ft_putstr(p->input);
-	write(1, "\033[", 2);
-	ft_putnbr_fd(prompt_width(p->prompt) + p->cursor_pos + max, 1);
-	write(1, "G", 1);
-}
-
-void	update_prompt(t_prompt *p, char *new_prompt)
-{
-	free(p->prompt);
-	p->prompt = ft_strdup(new_prompt);
+	return (false);
 }

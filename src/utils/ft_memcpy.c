@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memcpyc                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 15:28:19 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/19 15:19:30 by mgingast         ###   ########.fr       */
+/*   Created: 2025/04/26 21:25:31 by mgingast          #+#    #+#             */
+/*   Updated: 2025/10/16 12:56:15 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include "utils.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_memcpy(void *dest, const void *src, const size_t n)
 {
-	unsigned char	*s2;
-	int				i;
+	const unsigned char	*s;
+	unsigned char		*d;
+	size_t				i;
 
-	i = -1;
-	s2 = s;
-	while ((size_t)i++ != n - 1)
-		s2[i] = (unsigned char)c;
-	return (s);
+	if (!dest || !src)
+		return (NULL);
+	s = (const unsigned char *)src;
+	d = (unsigned char *)dest;
+	i = 0;
+	while (i < n)
+	{
+		d[i] = (unsigned char)s[i];
+		i++;
+	}
+	return (dest);
 }
