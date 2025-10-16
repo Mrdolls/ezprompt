@@ -6,17 +6,17 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:36:55 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/24 12:36:06 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:00:23 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <stdlib.h>
 
-char	*resize(char *old, int n, bool free_old)
+#include "ezprompt.h"
+#include "utils.h"
+
+static inline char	*check_ptr(char *old)
 {
-	int		i;
-	char	*new;
-
 	if (!old)
 	{
 		old = malloc(1);
@@ -24,34 +24,47 @@ char	*resize(char *old, int n, bool free_old)
 			return (NULL);
 		old[0] = '\0';
 	}
+	return (old);
+}
+
+char	*resize(char *old, const size_t n)
+{
+	size_t	i;
+	char	*new;
+
+	old = check_ptr(old);
+	if (!old)
+		return (NULL);
 	if (n <= 0)
 		return (old);
 	i = 0;
-	new = calloc(1, ft_strlen(old) + n + 1);
+	new = ft_calloc(1, ft_strlen(old) + n + 1);
 	if (!new)
+	{
+		free(old);
 		return (NULL);
+	}
 	while (old[i])
 	{
 		new[i] = old[i];
 		i++;
 	}
 	new[i] = '\0';
-	if (free_old)
-		free(old);
+	free(old);
 	return (new);
 }
 
-char	*insert_char(char *old, char c, int pos)
+char	*insert_char(char *old, const char c, const size_t pos)
 {
-	int		len;
+	size_t	len;
 	char	*new;
 
 	if (!old)
 		return (NULL);
 	len = ft_strlen(old);
-	if (pos < 0 || pos > len)
+	if (pos > len)
 		return (NULL);
-	new = calloc(1, ft_strlen(old) + 2);
+	new = ft_calloc(1, ft_strlen(old) + 2);
 	if (!new)
 		return (NULL);
 	ft_memcpy(new, old, pos);
@@ -63,13 +76,13 @@ char	*insert_char(char *old, char c, int pos)
 
 char	*delete_char(char *old, size_t *cursor_pos, size_t *input_size)
 {
-	int		len;
+	size_t	len;
 	char	*new;
 
 	if (!old || *cursor_pos <= 0)
 		return (old);
 	len = ft_strlen(old);
-	new = calloc(1, len);
+	new = ft_calloc(1, len);
 	if (!new)
 		return (NULL);
 	ft_memcpy(new, old, *cursor_pos - 1);
