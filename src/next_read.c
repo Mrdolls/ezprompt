@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 17:20:58 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:49:47 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ static bool	set_history(t_prompt *p)
 		return (true);
 	}
 	if (!ensure_capacity((void **)&p->history.entries, &p->history.capacity,
-			p->history.size + 1, sizeof(char*)))
+			p->history.size + 2, sizeof(char*)))
 		return (false);
 	p->history.entries[p->history.size] = ft_strdup(p->input);
 	if (!p->history.entries[p->history.size])
 		return (false);
 	p->history.size++;
+	p->history.entries[p->history.size] = NULL;
 	p->history.index = p->history.size;
 	return (true);
 }
@@ -94,8 +95,13 @@ static bool	get_input(t_prompt *p)
 
 bool	next_read(t_prompt *p)
 {
+	size_t	prompt_bytes;
+
 	p->cursor_pos = 0;
-	write(1, p->prompt, prompt_width(p->prompt) + 1);
+	if (!p->prompt)
+		p->prompt = ft_strdup("");
+	prompt_bytes = ft_strlen(p->prompt);
+	write(1, p->prompt, prompt_bytes);
 	if (!get_input(p))
 		return (false);
 	clear_extra_space(p);

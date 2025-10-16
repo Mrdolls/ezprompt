@@ -6,7 +6,7 @@
 /*   By: rel-qoqu <rel-qoqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:35:49 by rel-qoqu          #+#    #+#             */
-/*   Updated: 2025/10/16 13:34:23 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:42:46 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,25 @@ static size_t	char_display_width(const char *s)
 
 size_t	prompt_width(const char *s)
 {
-	size_t	width;
-	size_t	i;
-	size_t	w;
+	size_t			width;
+	size_t			i;
+	size_t			w;
+	unsigned char	c;
 
+	if (!s)
+		return (0);
 	width = 0;
 	i = 0;
 	while (s[i])
 	{
 		w = char_display_width(&s[i]);
 		width += w;
-		if ((s[i] & 0xE0) == 0xC0)
+		c = (unsigned char)s[i];
+		if ((c & 0xE0) == 0xC0)
 			i += 2;
-		else if ((s[i] & 0xF0) == 0xE0)
+		else if ((c & 0xF0) == 0xE0)
 			i += 3;
-		else if ((s[i] & 0xF8) == 0xF0)
+		else if ((c & 0xF8) == 0xF0)
 			i += 4;
 		else
 			i += 1;
