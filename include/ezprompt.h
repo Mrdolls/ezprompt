@@ -6,7 +6,7 @@
 /*   By: rel-qoqu <rel-qoqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:35:49 by rel-qoqu          #+#    #+#             */
-/*   Updated: 2025/10/16 13:53:32 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:40:13 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	is_empty(const char *str);
 bool	is_skipable(char c, t_prompt *p);
 void	free_tab(char **tab);
 void	free_prompt(t_prompt *p);
-bool	init_prompt(t_prompt **p, const char *prompt);
+bool	init_prompt(t_prompt *p, const char *prompt);
 bool	clear_input(t_prompt *p);
 bool	ensure_capacity(void **buffer, size_t *capacity,
 			size_t needed, size_t elem_size);

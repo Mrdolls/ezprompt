@@ -26,29 +26,30 @@ static void	set_input_mode(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
 
-bool	init_prompt(t_prompt **p, const char *prompt)
+bool	init_prompt(t_prompt *p, const char *prompt)
 {
 	set_input_mode();
-	*p = ft_calloc(1, sizeof(t_prompt));
-	if (!(*p))
+	p = ft_calloc(1, sizeof(t_prompt));
+	if (!p)
 		return (false);
-	if (!(*p)->input)
+	if (!p->input)
 	{
-		(*p)->input_capacity = 64;
-		(*p)->input = resize((*p)->input, 64);
-		if (!(*p)->input)
+		p->input_capacity = 64;
+		p->input = resize(p->input, 64);
+		if (!p->input)
 			return (false);
 	}
-	if (!(*p)->history.entries)
+	if (!p->history.entries)
 	{
-		(*p)->history.capacity = 64;
-		(*p)->history.size = 0;
-		(*p)->history.entries = ft_calloc(1,
-				sizeof(char *) * (*p)->history.capacity);
-		if (!(*p)->history.entries)
+		p->history.capacity = 64;
+		p->history.size = 0;
+		p->history.entries = ft_calloc(1,
+				sizeof(char *) * p->history.capacity);
+		if (!p->history.entries)
 			return (false);
 	}
-	(*p)->prompt = ft_strdup(prompt);
+	p->prompt = ft_strdup(prompt);
+	p->exit_flag = true;
 	return (true);
 }
 
