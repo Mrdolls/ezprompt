@@ -6,13 +6,16 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:05:46 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/21 16:18:11 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:33:42 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <unistd.h>
 
-bool	is_l(char c, t_prompt *p)
+#include "ezprompt.h"
+#include "utils.h"
+
+bool	is_l(const char c, t_prompt *p)
 {
 	if (c == '\f')
 	{
@@ -25,7 +28,7 @@ bool	is_l(char c, t_prompt *p)
 	return (false);
 }
 
-bool	is_d(char c, t_prompt *p)
+bool	is_d(const char c, t_prompt *p)
 {
 	if (c == 0x04)
 	{
@@ -36,7 +39,7 @@ bool	is_d(char c, t_prompt *p)
 	return (false);
 }
 
-bool	is_backspace(char c, t_prompt *p)
+bool	is_backspace(const char c, t_prompt *p)
 {
 	if (c == 127 || c == 8)
 	{
@@ -50,7 +53,7 @@ bool	is_backspace(char c, t_prompt *p)
 	return (false);
 }
 
-bool	is_empty(char *str)
+bool	is_empty(const char *str)
 {
 	int	i;
 
@@ -66,7 +69,7 @@ bool	is_empty(char *str)
 	return (true);
 }
 
-bool	is_skipable(char c, t_prompt *p)
+bool	is_skipable(const char c, t_prompt *p)
 {
 	if (c == '\t' || c == 0x1F
 		|| is_l(c, p)

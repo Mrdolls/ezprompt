@@ -6,11 +6,13 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:30:35 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/20 18:39:20 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:12:24 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <stdlib.h>
+
+#include "ezprompt.h"
 
 void	free_tab(char **tab)
 {

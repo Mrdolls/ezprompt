@@ -6,11 +6,15 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 14:34:03 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/23 21:20:32 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:11:55 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "ezprompt.h"
+#include "utils.h"
 
 t_arrow	get_arrow(void)
 {
@@ -79,7 +83,7 @@ void	set_history_down(t_prompt *p)
 	p->cursor_pos = p->input_size;
 }
 
-void	set_cursor(t_prompt *p, t_arrow arrow)
+static inline void	set_cursor(t_prompt *p, t_arrow arrow)
 {
 	if (arrow == ARROW_LEFT && p->cursor_pos > 0)
 	{

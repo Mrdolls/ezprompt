@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   next_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgingast <mgingast <mgingast@student.42    +#+  +:+       +#+        */
+/*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/09/29 16:22:38 by mgingast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:36:27 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ezprompt.h"
+#include <unistd.h>
 
-static bool	append_char(t_prompt *p, char c)
+#include "ezprompt.h"
+#include "utils.h"
+
+static bool	append_char(t_prompt *p, const char c)
 {
 	char	*new_input;
 
@@ -29,20 +32,24 @@ static bool	append_char(t_prompt *p, char c)
 	return (true);
 }
 
-static bool	set_history(t_prompt *p)
+static inline size_t	calc_new_size(const t_prompt *p)
 {
-	int	size;
-
 	if (p->history.size > 0)
 	{
 		if (p->input_size > ft_strlen(p->history.entries[p->history.size - 1]))
-			size = p->input_size;
-		else
-			size = ft_strlen(p->history.entries[p->history.size - 1]);
+			return (p->input_size);
+		return (ft_strlen(p->history.entries[p->history.size - 1]));
 	}
+	return (p->history.size);
+}
+
+static bool	set_history(t_prompt *p)
+{
+	size_t	size;
+
+	size = calc_new_size(p);
 	if (is_empty(p->input) || (p->history.size > 0 && ft_strncmp(p->input,
-				p->history.entries[p->history.size - 1],
-				size) == 0))
+				p->history.entries[p->history.size - 1], size) == 0))
 	{
 		p->history.index = p->history.size;
 		return (true);
@@ -61,7 +68,7 @@ static bool	set_history(t_prompt *p)
 static bool	get_input(t_prompt *p)
 {
 	char	c;
-	int		len;
+	ssize_t	len;
 
 	len = 1;
 	while (len)
@@ -88,7 +95,7 @@ static bool	get_input(t_prompt *p)
 bool	next_read(t_prompt *p)
 {
 	p->cursor_pos = 0;
-	write(1, p->prompt, prompt_width(p->prompt) + 1);
+	write(1, p->prompt, (size_t)prompt_width(p->prompt) + 1);
 	if (!get_input(p))
 		return (false);
 	clear_extra_space(p);
