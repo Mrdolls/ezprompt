@@ -14,7 +14,8 @@
 #include <unistd.h>
 
 #include "ezprompt.h"
-#include "utils.h"
+#include "core/memory/ft_memory.h"
+#include "core/string/ft_string.h"
 
 static inline t_arrow	parse_final(unsigned char c)
 {

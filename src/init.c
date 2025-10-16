@@ -6,7 +6,7 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:31:36 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 17:56:48 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:13:15 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <unistd.h>
 
 #include "ezprompt.h"
-#include "utils.h"
+#include "core/memory/ft_memory.h"
+#include "core/string/ft_string.h"
 
 static void	init_prompt_fields(t_prompt *p)
 {

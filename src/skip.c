@@ -6,14 +6,14 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:05:46 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:33:42 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:15:11 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 #include "ezprompt.h"
-#include "utils.h"
+#include "core/string/ft_string.h"
 
 bool	is_l(const char c, t_prompt *p)
 {

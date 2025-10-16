@@ -6,7 +6,7 @@
 #    By: rel-qoqu <rel-qoqu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/16 11:43:38 by rel-qoqu          #+#    #+#              #
-#    Updated: 2025/10/16 14:22:46 by rel-qoqu         ###   ########.fr        #
+#    Updated: 2025/10/16 18:58:33 by rel-qoqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIB_NAME_ASAN	:= lib$(NAME)_asan.a
 # Compiler and tools
 CC				:= cc
 AR				:= ar
+ARFLAGS			:= rcs
 RANLIB			:= ranlib
 RMF				:= rm -f
 RMR				:= rm -rf
@@ -31,13 +32,13 @@ BUILD_DIR		:= build
 BUILD_DIR_REL	:= $(BUILD_DIR)/release
 BUILD_DIR_DBG	:= $(BUILD_DIR)/debug
 BUILD_DIR_ASAN	:= $(BUILD_DIR)/asan
+LIBFT_DIR		:= libft
+LIBFT_A			:= $(LIBFT_DIR)/libft.a
 
-# Source files (all C files in src/)
-UTILS_FILES		:= $(addprefix utils/, ft_bzero.c ft_calloc.c ft_memcpy.c ft_memset.c \
-						ft_putnbr_fd.c ft_putstr.c ft_strdup.c ft_strlen.c ft_strncmp.c)
+# Source files (C files in src/)
 SRCS_FILES		:= arrow.c ensure_capacity.c free.c init.c next_read.c \
-					prompt.c prompt_size.c resize.c skip.c
-SRCS			:= $(addprefix $(SRC_DIR)/, $(SRCS_FILES) $(UTILS_FILES))
+                   prompt.c prompt_size.c resize.c skip.c
+SRCS			:= $(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 
 # Object and dependencies
 OBJS_REL		:= $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR_REL)/%.o,$(SRCS))
@@ -49,9 +50,9 @@ DEPS_ASAN		:= $(OBJS_ASAN:.o=.d)
 
 # Common flags
 WARN_FLAGS		:= -Wall -Wextra -Werror -Winline -pedantic -std=c99 -Wshadow -Wconversion \
-					-Wsign-conversion -Wundef -Wnull-dereference -Wpadded
+                   -Wsign-conversion -Wundef -Wnull-dereference -Wpadded
 DEPS_FLAGS		:= -MMD -MP
-INC_FLAGS		:= -I$(INC_DIR)
+INC_FLAGS		:= -I$(INC_DIR) -I$(LIBFT_DIR)/include -I$(LIBFT_DIR)
 C_FLAGS			:= $(WARN_FLAGS) $(DEPS_FLAGS) $(INC_FLAGS) -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=700
 
 # Release flags
@@ -73,31 +74,44 @@ CYAN			= \033[0;36m
 WHITE			= \033[0;37m
 RESET			= \033[0m
 
+# Libft
+libft_release:
+	@printf "$(CYAN)Building libft (release)...$(RESET)\n"
+	@$(MAKE) -C $(LIBFT_DIR) -j
+
+libft_debug:
+	@printf "$(CYAN)Building libft (debug)...$(RESET)\n"
+	@$(MAKE) -C $(LIBFT_DIR) debug -j
+
+libft_asan:
+	@printf "$(CYAN)Building libft (asan)...$(RESET)\n"
+	@$(MAKE) -C $(LIBFT_DIR) sanitize -j
+
 # Default target: release static library
-all: $(LIB_NAME)
+all: libft_release $(LIB_NAME)
 
 # Archive release library
 $(LIB_NAME): $(OBJS_REL)
 	@printf "$(CYAN)Archiving $(LIB_NAME)...$(RESET)\n"
-	@$(AR) rcs $@ $(OBJS_REL)
+	@$(AR) $(ARFLAGS) $@ $(OBJS_REL)
 	@$(RANLIB) $@
 	@printf "$(GREEN)✓ $(LIB_NAME) built successfully!$(RESET)\n"
 
 # Archive debug library (no sanitizers)
-debug: $(LIB_NAME_DBG)
+debug: libft_debug $(LIB_NAME_DBG)
 
 $(LIB_NAME_DBG): $(OBJS_DBG)
 	@printf "$(CYAN)Archiving $(LIB_NAME_DBG)...$(RESET)\n"
-	@$(AR) rcs $@ $(OBJS_DBG)
+	@$(AR) $(ARFLAGS) $@ $(OBJS_DBG)
 	@$(RANLIB) $@
 	@printf "$(GREEN)✓ $(LIB_NAME_DBG) built successfully!$(RESET)\n"
 
 # Archive ASan instrumented library
-asan: $(LIB_NAME_ASAN)
+asan: libft_asan $(LIB_NAME_ASAN)
 
 $(LIB_NAME_ASAN): $(OBJS_ASAN)
 	@printf "$(CYAN)Archiving $(LIB_NAME_ASAN)...$(RESET)\n"
-	@$(AR) rcs $@ $(OBJS_ASAN)
+	@$(AR) $(ARFLAGS) $@ $(OBJS_ASAN)
 	@$(RANLIB) $@
 	@printf "$(GREEN)✓ $(LIB_NAME_ASAN) built successfully!$(RESET)\n"
 	@printf "$(YELLOW)Note: link your final executable with -fsanitize=address as well.$(RESET)\n"
@@ -158,7 +172,7 @@ norm:
 	@norminette $(INC_DIR)/ezprompt.h
 	@norminette $(SRCS)
 
-.PHONY: all debug asan clean fclean re help norm
+.PHONY: libft_release libft_debug libft_asan all debug asan clean fclean re help norm
 
 # Include generated dependencies
 -include $(DEPS_REL) $(DEPS_DBG) $(DEPS_ASAN)

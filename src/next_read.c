@@ -6,14 +6,14 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:23:02 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 17:49:47 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:13:30 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 #include "ezprompt.h"
-#include "utils.h"
+#include "core/string/ft_string.h"
 
 static bool	append_char(t_prompt *p, const char c)
 {

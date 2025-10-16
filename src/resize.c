@@ -6,14 +6,16 @@
 /*   By: mgingast <mgingast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:36:55 by mgingast          #+#    #+#             */
-/*   Updated: 2025/10/16 17:02:45 by rel-qoqu         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:20:23 by rel-qoqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "ezprompt.h"
-#include "utils.h"
+#include "core/ctype/ft_ctype.h"
+#include "core/memory/ft_memory.h"
+#include "core/string/ft_string.h"
 
 static inline char	*check_ptr(char *old)
 {
